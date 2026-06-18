@@ -19,29 +19,29 @@
             return 0;
         }
 
-        var text = timeElement.innerText.trim();
-        var parts = text.split(':');
+        const text = timeElement.innerText.trim();
+        const parts = text.split(':');
 
         if (parts.length < 2) {
             return 0;
         }
 
-        var minutes = parseInt(parts[0], 10) || 0;
-        var secondsPart = parts[1].split('.')[0];
-        var seconds = parseInt(secondsPart, 10) || 0;
+        const minutes = parseInt(parts[0], 10) || 0;
+        const secondsPart = parts[1].split('.')[0];
+        const seconds = parseInt(secondsPart, 10) || 0;
 
         return (minutes * 60) + seconds;
     }
 
     function getOwnClockAndButton() {
-        var bottomClock = document.querySelector('.rclock-bottom .time');
-        var bottomButton = document.querySelector('.rclock-bottom button');
+        const bottomClock = document.querySelector('.rclock-bottom .time');
+        const bottomButton = document.querySelector('.rclock-bottom button');
         if (bottomClock && bottomButton) {
             return { clock: bottomClock, button: bottomButton };
         }
 
-        var topClock = document.querySelector('.rclock-top .time');
-        var topButton = document.querySelector('.rclock-top button');
+        const topClock = document.querySelector('.rclock-top .time');
+        const topButton = document.querySelector('.rclock-top button');
         if (topClock && topButton) {
             return { clock: topClock, button: topButton };
         }
@@ -50,19 +50,19 @@
     }
 
     function tryBerserk(intervalId) {
-        var clockAndButton = getOwnClockAndButton();
+        const clockAndButton = getOwnClockAndButton();
         if (!clockAndButton) {
             return;
         }
 
-        var time = parseTimeString(clockAndButton.clock);
+        const time = parseTimeString(clockAndButton.clock);
         if (time >= MIN_SECONDS) {
             clockAndButton.button.click();
             clearInterval(intervalId);
         }
     }
 
-    var interval = setInterval(function() {
+    const interval = setInterval(function() {
         tryBerserk(interval);
     }, CHECK_INTERVAL);
 
