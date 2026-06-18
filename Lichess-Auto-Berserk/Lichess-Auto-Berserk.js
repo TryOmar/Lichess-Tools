@@ -11,8 +11,8 @@
 (function() {
     'use strict';
 
-    var MIN_SECONDS = 30; // Minimum time (in seconds) required to berserk
-    var CHECK_INTERVAL = 500; // Interval in ms to check
+    const MIN_SECONDS = 30; // Minimum time (in seconds) required to berserk
+    const CHECK_INTERVAL = 500; // Interval in ms to check
 
     function parseTimeString(timeElement) {
         if (!timeElement) {
@@ -33,17 +33,31 @@
         return (minutes * 60) + seconds;
     }
 
-    function tryBerserk(intervalId) {
-        var clock = document.querySelector('.rclock-bottom .time') || document.querySelector('.rclock-top .time');
-        var berserkBtn = document.querySelector('.rclock-bottom button') || document.querySelector('.rclock-top button');
+    function getOwnClockAndButton() {
+        var bottomClock = document.querySelector('.rclock-bottom .time');
+        var bottomButton = document.querySelector('.rclock-bottom button');
+        if (bottomClock && bottomButton) {
+            return { clock: bottomClock, button: bottomButton };
+        }
 
-        if (!clock || !berserkBtn) {
+        var topClock = document.querySelector('.rclock-top .time');
+        var topButton = document.querySelector('.rclock-top button');
+        if (topClock && topButton) {
+            return { clock: topClock, button: topButton };
+        }
+
+        return null;
+    }
+
+    function tryBerserk(intervalId) {
+        var clockAndButton = getOwnClockAndButton();
+        if (!clockAndButton) {
             return;
         }
 
-        var time = parseTimeString(clock);
+        var time = parseTimeString(clockAndButton.clock);
         if (time >= MIN_SECONDS) {
-            berserkBtn.click();
+            clockAndButton.button.click();
             clearInterval(intervalId);
         }
     }
@@ -51,4 +65,8 @@
     var interval = setInterval(function() {
         tryBerserk(interval);
     }, CHECK_INTERVAL);
+
+    window.addEventListener('pagehide', function() {
+        clearInterval(interval);
+    });
 })();
