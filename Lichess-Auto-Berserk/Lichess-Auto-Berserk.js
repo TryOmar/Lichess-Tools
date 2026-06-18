@@ -27,7 +27,7 @@
         }
 
         const minutes = parseInt(parts[0], 10) || 0;
-        const secondsPart = parts[1].split('.')[0];
+        const secondsPart = (parts[1] || '').split('.')[0];
         const seconds = parseInt(secondsPart, 10) || 0;
 
         return (minutes * 60) + seconds;
@@ -57,6 +57,11 @@
 
         const time = parseTimeString(clockAndButton.clock);
         if (time >= MIN_SECONDS) {
+            const buttonText = (clockAndButton.button.textContent || '').toLowerCase();
+            if (!buttonText.includes('berserk')) {
+                return;
+            }
+
             clockAndButton.button.click();
             clearInterval(intervalId);
         }
