@@ -13,6 +13,9 @@ The Lichess Chess Board Time Alert script is a Tampermonkey script that adds a r
 ### 📂[Lichess Analysis Board Automation](./Lichess-Analysis-Board-Automation)
 This Tampermonkey script automates the process of requesting a computer analysis on Lichess after finishing a game. It saves you the manual steps of opening the analysis board and clicking the request analysis button, making your post-game analysis more convenient and efficient.
 
+### 📂[Lichess Auto Berserk](./Lichess-Auto-Berserk)
+This Tampermonkey script automatically clicks the Berserk button at the start of a game when your clock time is at or above a configurable threshold.
+
 ## Installation
 
 To use these scripts, you'll need a userscript manager extension like Tampermonkey installed in your browser. Once you have the extension installed, follow the instructions below to install and enable the desired scripts:
