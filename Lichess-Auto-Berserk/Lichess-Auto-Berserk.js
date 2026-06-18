@@ -40,16 +40,15 @@
             return { clock: bottomClock, button: bottomButton };
         }
 
-        const topClock = document.querySelector('.rclock-top .time');
-        const topButton = document.querySelector('.rclock-top button');
-        if (topClock && topButton) {
-            return { clock: topClock, button: topButton };
-        }
-
         return null;
     }
 
     function tryBerserk(intervalId) {
+        if (!document.querySelector('.round__app')) {
+            clearInterval(intervalId);
+            return;
+        }
+
         const clockAndButton = getOwnClockAndButton();
         if (!clockAndButton) {
             return;
