@@ -11,7 +11,7 @@
 (function() {
     'use strict';
 
-    const MIN_SECONDS = 30; // Minimum time (in seconds) required to berserk
+    const MIN_SECONDS_TO_BERSERK = 30; // Minimum time (in seconds) required to berserk
     const CHECK_INTERVAL = 500; // Interval in ms to check
 
     function parseTimeString(timeElement) {
@@ -55,7 +55,7 @@
         }
 
         const time = parseTimeString(clockAndButton.clock);
-        if (time >= MIN_SECONDS) {
+        if (time >= MIN_SECONDS_TO_BERSERK) {
             const buttonText = (clockAndButton.button.textContent || '').toLowerCase();
             if (!buttonText.includes('berserk')) {
                 return;
